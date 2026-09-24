@@ -1,0 +1,16 @@
+my_node {
+  my_node_num: 1256038119
+  reboot_count: 7
+  min_app_version: 30200
+  device_id: "\272\310\032\337Ss\307\3050~\3655\275\370s\307"
+}
+owner {
+  id: "!4add9ee7"
+  long_name: "ROOTCON 20 Badge"
+  short_name: "RC20"
+  macaddr: "\340r\241\344\3414"
+  hw_model: PRIVATE_HW
+  public_key: "P=j\273\371\346\004\361\232\235~j\010F\037\363\003-_\'9\327\246\316\245\325\216\t\277\263v0"
+  is_unmessagable: false
+}
+version: 25

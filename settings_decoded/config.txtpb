@@ -1,0 +1,42 @@
+device {
+  node_info_broadcast_secs: 10800
+}
+position {
+  position_broadcast_secs: 3600
+  position_broadcast_smart_enabled: true
+  gps_update_interval: 120
+  position_flags: 811
+  broadcast_smart_minimum_distance: 100
+  broadcast_smart_minimum_interval_secs: 300
+  gps_mode: NOT_PRESENT
+}
+power {
+  wait_bluetooth_secs: 60
+  sds_secs: 4294967295
+  ls_secs: 300
+  min_wake_secs: 10
+}
+network {
+  ntp_server: "meshtastic.pool.ntp.org"
+}
+display {
+  screen_on_secs: 600
+}
+lora {
+  use_preset: true
+  region: PH_433
+  hop_limit: 3
+  tx_enabled: true
+  sx126x_rx_boosted_gain: true
+  fem_lna_mode: NOT_PRESENT
+}
+bluetooth {
+  enabled: true
+  fixed_pin: 123456
+}
+version: 25
+security {
+  public_key: "P=j\273\371\346\004\361\232\235~j\010F\037\363\003-_\'9\327\246\316\245\325\216\t\277\263v0"
+  private_key: "\370s\2578\357\2329\022r\004\31019!\336o\243\027\356S\220M\365_\357\300U*8\t\257T"
+  serial_enabled: true
+}

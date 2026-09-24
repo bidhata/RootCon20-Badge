@@ -1,0 +1,44 @@
+mqtt {
+  address: "mqtt.meshtastic.org"
+  username: "meshdev"
+  password: "large4cats"
+  encryption_enabled: true
+  root: "msh"
+}
+serial {
+}
+external_notification {
+}
+store_forward {
+}
+range_test {
+}
+telemetry {
+  device_update_interval: 2147483647
+}
+canned_message {
+}
+version: 26
+audio {
+}
+neighbor_info {
+}
+ambient_lighting {
+  current: 10
+  red: 228
+  green: 225
+  blue: 52
+}
+detection_sensor {
+  minimum_broadcast_secs: 45
+  detection_trigger_type: LOGIC_HIGH
+}
+paxcounter {
+}
+statusmessage {
+}
+traffic_management {
+  position_min_interval_secs: 18000
+}
+tak {
+}

@@ -1,0 +1,60 @@
+WARNING file:node.py get_canned_message line:624 Canned Message module not present (excluded by firmware)
+# start of Meshtastic configure yaml
+channel_url: https://meshtastic.org/e/#CgUSAQE6ABIPCAE4E0ADSAFQCmgB0AYC
+config:
+  bluetooth:
+    enabled: true
+    fixedPin: 123456
+  device:
+    nodeInfoBroadcastSecs: 10800
+  display:
+    screenOnSecs: 600
+  lora:
+    femLnaMode: NOT_PRESENT
+    hopLimit: 3
+    region: PH_433
+    sx126xRxBoostedGain: true
+    txEnabled: true
+    txPower: 10
+    usePreset: true
+  network:
+    ntpServer: meshtastic.pool.ntp.org
+  position:
+    broadcastSmartMinimumDistance: 100
+    broadcastSmartMinimumIntervalSecs: 300
+    gpsMode: NOT_PRESENT
+    gpsUpdateInterval: 120
+    positionBroadcastSecs: 3600
+    positionBroadcastSmartEnabled: true
+    positionFlags: 811
+  power:
+    lsSecs: 300
+    minWakeSecs: 10
+    sdsSecs: 4294967295
+    waitBluetoothSecs: 60
+  security:
+    privateKey: base64:+HOvOO+aORJyBMgxOSHeb6MX7lOQTfVf78BVKjgJr1Q=
+    publicKey: base64:UD1qu/nmBPGanX5qCEYf8wMtXyc516bOpdWOCb+zdjA=
+    serialEnabled: true
+module_config:
+  ambientLighting:
+    blue: 52
+    current: 10
+    green: 225
+    ledState: true
+  detectionSensor:
+    detectionTriggerType: LOGIC_HIGH
+    minimumBroadcastSecs: 45
+  mqtt:
+    address: mqtt.meshtastic.org
+    encryptionEnabled: true
+    password: large4cats
+    root: msh
+    username: meshdev
+  telemetry:
+    deviceUpdateInterval: 2147483647
+  trafficManagement:
+    positionMinIntervalSecs: 18000
+owner: Bidhata
+owner_short: KP
+

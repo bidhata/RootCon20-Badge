@@ -1,0 +1,44 @@
+channels {
+  settings {
+    psk: "\001"
+    module_settings {
+    }
+  }
+  role: PRIMARY
+}
+channels {
+  index: 1
+  settings {
+  }
+}
+channels {
+  index: 2
+  settings {
+  }
+}
+channels {
+  index: 3
+  settings {
+  }
+}
+channels {
+  index: 4
+  settings {
+  }
+}
+channels {
+  index: 5
+  settings {
+  }
+}
+channels {
+  index: 6
+  settings {
+  }
+}
+channels {
+  index: 7
+  settings {
+  }
+}
+version: 26
