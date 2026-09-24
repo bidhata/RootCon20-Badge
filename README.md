@@ -124,6 +124,38 @@ SHA-256 of `badge_full_8MB.bin`:
 | Telemetry | device update interval effectively disabled (`2147483647`) |
 | Traffic management | position min interval 18000 s |
 
+### How this was decoded
+
+The path from the full flash dump to the readable `settings_decoded/*.txtpb` files:
+
+1. **Split the flash by partition.** Read the partition table at `0x8000` (see [section 3](#3-flash-layout)) and carve `badge_full_8MB.bin` into the per-region files in `partitions/` at their offsets.
+2. **Mount the filesystem.** The `spiffs` partition is actually a LittleFS image (block size 4096, 384 blocks). Open `partitions/spiffs_0x670000.bin` with [`littlefs-python`](https://pypi.org/project/littlefs-python/) and copy out the `/prefs/*.proto` files into `filesystem/prefs/`. These are raw protobuf blobs, not text.
+3. **Decode the protobufs to text.** Each blob maps to a Meshtastic schema message. Parse the bytes and print them with `google.protobuf.text_format` to produce the `settings_decoded/*.txtpb` files:
+
+   | File in `filesystem/prefs/` | Protobuf message | Decoded to |
+   |---|---|---|
+   | `config.proto` | `localonly_pb2.LocalConfig` | `settings_decoded/config.txtpb` |
+   | `module.proto` | `localonly_pb2.LocalModuleConfig` | `settings_decoded/module.txtpb` |
+   | `channels.proto` | `deviceonly_pb2.ChannelFile` | `settings_decoded/channels.txtpb` |
+   | `device.proto` | `deviceonly_pb2.DeviceState` | `settings_decoded/device.txtpb` |
+   | `nodes.proto` | `deviceonly_pb2.NodeDatabase` | (kept as raw `nodes.proto`) |
+
+   The `meshtastic` Python package ships these generated classes under `meshtastic.protobuf`.
+
+```python
+from google.protobuf import text_format
+from meshtastic.protobuf import localonly_pb2, deviceonly_pb2
+
+# example: config.proto -> config.txtpb
+cfg = localonly_pb2.LocalConfig()
+cfg.ParseFromString(open("filesystem/prefs/config.proto", "rb").read())
+open("settings_decoded/config.txtpb", "w").write(text_format.MessageToString(cfg))
+```
+
+Byte-string fields in the `.txtpb` output (keys, MAC, device id) are shown as escaped octal because they are raw binary. The base64 forms in the tables above and in `config_backup_before_led.yaml` are the same bytes re-encoded — e.g. the public key `UD1qu/nmBPGanX5qCEYf8wMtXyc516bOpdWOCb+zdjA=` decodes to the `P=j\273...` shown in `config.txtpb`.
+
+> **Note:** `config_backup_before_led.yaml` in this folder is a separate artifact — a Meshtastic CLI export (`--export-config`) taken from the live badge, not a product of this decode pipeline. It reflects a state where the owner was set to `Bidhata` / `KP`. It also contains the private key in plain text (`security.privateKey`), so it falls under the same handling rules as the files below.
+
 ## 6. Security notes
 
 - **Private key in the dump.** The Curve25519 private key (`config.security.private_key`) sits in plain text in `badge_full_8MB.bin`, `partitions/spiffs_0x670000.bin`, `filesystem/prefs/config.proto` and `settings_decoded/config.txtpb`. Anyone who has these files can impersonate this node and read direct messages sent to it. Do not share them.
